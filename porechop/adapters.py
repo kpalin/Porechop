@@ -469,3 +469,12 @@ def make_full_rapid_barcode_adapter(barcode_num):
 
     return Adapter('Rapid barcoding ' + str(barcode_num) + ' (full sequence)',
                    start_sequence=('RB' + '%02d' % barcode_num + '_full', start_full_seq))
+
+def make_full_pcr_PBC001_barcode_adapter(barcode_num):
+    barcode = [x for x in ADAPTERS if x.name == 'Barcode ' + str(barcode_num) + ' (forward)'][0]
+    start_barcode_seq = barcode.start_sequence[1]
+
+    start_full_seq = 'AATGTACTTCGTTCAGTTACGTATTGCTGGTGCTG' + start_barcode_seq + 'TTAACCT'
+
+    return Adapter('PCR EXP-PBC001 barcoding ' + str(barcode_num) + ' (full sequence)',
+                   start_sequence=('RB' + '%02d' % barcode_num + '_full', start_full_seq))

@@ -24,7 +24,7 @@ import re
 from multiprocessing.dummy import Pool as ThreadPool
 from collections import defaultdict
 from .misc import load_fasta_or_fastq, print_table, red, bold_underline, MyHelpFormatter, int_to_str
-from .adapters import ADAPTERS, make_full_native_barcode_adapter, make_full_rapid_barcode_adapter
+from .adapters import ADAPTERS, make_full_native_barcode_adapter, make_full_rapid_barcode_adapter, make_full_pcr_PBC001_barcode_adapter
 from .nanopore_read import NanoporeRead
 from .version import __version__
 
@@ -418,6 +418,13 @@ def add_full_barcode_adapter_sets(matching_sets):
         if all(x in matching_set_names
                for x in ['SQK-NSK007', 'Rapid', 'Barcode ' + str(i) + ' (forward)']):
             matching_sets.append(make_full_rapid_barcode_adapter(i))
+ 
+        # PCR barcode full sequences
+        if all(x in matching_set_names 
+               for x in ['SQK-NSK007', 'Rapid', 'Barcode ' + str(i) + ' (forward)']): #TODO
+            matching_sets.append(make_full_pcr_PBC001_barcode_adapter(i))
+
+        
 
     return matching_sets
 
